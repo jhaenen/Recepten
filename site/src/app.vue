@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="slxurp">Hello Vue!</h1>
+        <h1>Hello Vue!</h1>
     </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
     body {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
-    .slxurp {
+    h1 {
         text-align: center;
         color: crimson;
     }
