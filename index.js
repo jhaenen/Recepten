@@ -11,7 +11,7 @@ const readfile = util.promisify(fs.readFile);
 app.get("/", async function (getReq, getRes) {
     let data;
     try {
-        data = await readfile("index.html");
+        data = await readfile("site/index.html");
     } catch (err) {
         getRes.writeHead(500, "HTTP error" + err,  {"Content-Type": "text/html"});
         return;
@@ -20,7 +20,7 @@ app.get("/", async function (getReq, getRes) {
     getRes.writeHead(200, {"Content-Type": "text/html"});
     getRes.write(data);
 
-    const client = await mc.connect(dbURL, { useNewUrlParser: true }).catch(err => { console.log(err); });
+    const client = await mc.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true}).catch(err => { console.log(err); });
 
     let dbRes;
     try {
