@@ -1,12 +1,31 @@
 <template>
     <div>
         <h1>Hello Vue!</h1>
+        <div v-if="respAvailable">
+            <div v-bind:key="recipe.id" v-for="recipe in recipes">
+                <p>{{recipe.name}}</p>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: "App"
+    name: "App",
+    data() {
+        return {
+            recipes: [],
+            respAvailable: false
+        };
+    },
+    created() {
+        fetch("/recipe")
+        .then(resp => resp.json())
+        .then(data => {
+            this.respAvailable = true;
+            this.recipes = data;
+        });
+    }
 };
 </script>
 
