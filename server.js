@@ -3,11 +3,18 @@ const app = express();
 const fs = require("fs");
 const util = require("util");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 require("dotenv/config")
 
 const readfile = util.promisify(fs.readFile);
 
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true}, () => console.log("Connected to database."));
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}, () => console.log("Connected to database."));
+
+app.use(bodyParser.json());
+
+const recipeRoute = require("./routes/recipe");
+
+app.use("/recipe", recipeRoute);
 
 app.get("/", async function (getReq, getRes) {
     let data;
