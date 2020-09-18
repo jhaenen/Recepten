@@ -12,7 +12,7 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedT
 app.get("/", async function (getReq, getRes) {
     let data;
     try {
-        data = await readfile("site/dist/index.html");
+        data = await readfile("app/dist/index.html");
     } catch (err) {
         getRes.writeHead(500, "HTTP error" + err,  {"Content-Type": "text/html"});
         return;
@@ -26,7 +26,7 @@ app.get("/", async function (getReq, getRes) {
 app.get("/main.js", async function(getReq, getRes) {
     let data;
     try {
-        data = await readfile("site/dist/main.js");
+        data = await readfile("app/dist/main.js");
     } catch (err) {
         getRes.writeHead(500, "HTTP error" + err,  {"Content-Type": "application/javascript"});
         return;
