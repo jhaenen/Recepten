@@ -2,12 +2,12 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 const util = require("util");
-const recipe = require("./recipeHandler");
-
-var dbURL = "mongodb://localhost:27017";
-recipe.init(dbURL);
+const mongoose = require("mongoose");
+require("dotenv/config")
 
 const readfile = util.promisify(fs.readFile);
+
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true}, () => console.log("Connected to database."));
 
 app.get("/", async function (getReq, getRes) {
     let data;
@@ -20,12 +20,6 @@ app.get("/", async function (getReq, getRes) {
 
     getRes.writeHead(200, {"Content-Type": "text/html"});
     getRes.write(data);
-
-    let dbRes = await recipe.find();
-
-    dbRes.forEach(element => {
-        getRes.write("<div>" + element.name + "</div>");
-    });  
     getRes.end();  
 });
 
