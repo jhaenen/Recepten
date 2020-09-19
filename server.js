@@ -8,6 +8,8 @@ const path = require('path');
 require("dotenv/config")
 global.serverRoot = path.resolve(__dirname);
 
+app.listen(2413);
+
 const readfile = util.promisify(fs.readFile);
 
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}, () => console.log("Connected to database."));
@@ -15,10 +17,9 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedT
 app.use(bodyParser.json());
 
 const recipeRoute = require("./routes/recipe");
-const imgRoute = require("./routes/img");
+
 
 app.use("/recipe", recipeRoute);
-app.use("/img", imgRoute);
 
 app.get("/", async function (getReq, getRes) {
     let data;
@@ -49,4 +50,10 @@ app.get("/main.js", async function(getReq, getRes) {
     getRes.end(); 
 });
 
-app.listen(2413);
+app.get("/img/:img", (req, res) => {
+    res.sendFile(serverRoot + "/app/dist/img/" + req.params.img);
+});
+
+app.get("/favicons/:favicon", (req, res) => {
+    res.sendFile(serverRoot + "/app/dist/favicons/" + req.params.favicon);
+});
