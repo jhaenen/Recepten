@@ -6,6 +6,7 @@
                 <p>{{recipe.name}}</p>
             </div>
         </div>
+        <img id="testIMG" src="./assets/food_example.jpg"/>
     </div>
 </template>
 

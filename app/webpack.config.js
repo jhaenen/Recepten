@@ -1,6 +1,5 @@
 // webpack.config.js
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -10,8 +9,6 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader'
       },
-      // this will apply to both plain `.js` files
-      // AND `<script>` blocks in `.vue` files
       {
         test: /\.js$/,
         loader: 'babel-loader',
@@ -21,25 +18,31 @@ module.exports = {
           ]
         }
       },
-      // this will apply to both plain `.css` files
-      // AND `<style>` blocks in `.vue` files
       {
         test: /\.css$/,
         use: [
           'style-loader',
           'css-loader'
         ]
+      },
+      {
+        test: /\.html$/,
+        use: 'html-loader'
+      },
+      {
+        test: /\.(svg|png|jpg|gif)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[hash].[ext]',
+            outputPath: 'img',
+            esModule: false
+          }
+        }
       }
     ]
   },
   plugins: [
-    // make sure to include the plugin for the magic
     new VueLoaderPlugin(),
-    new HTMLWebpackPlugin({
-      showErrors: true,
-      cache: true,
-      title: "Haenen Recepten",
-      template: "src/index.html"
-    })
   ]
 }

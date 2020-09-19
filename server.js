@@ -4,7 +4,9 @@ const fs = require("fs");
 const util = require("util");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const path = require('path');
 require("dotenv/config")
+global.serverRoot = path.resolve(__dirname);
 
 const readfile = util.promisify(fs.readFile);
 
@@ -13,8 +15,10 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedT
 app.use(bodyParser.json());
 
 const recipeRoute = require("./routes/recipe");
+const imgRoute = require("./routes/img");
 
 app.use("/recipe", recipeRoute);
+app.use("/img", imgRoute);
 
 app.get("/", async function (getReq, getRes) {
     let data;
