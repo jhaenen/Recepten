@@ -1,20 +1,25 @@
 <template>
     <div>
-        <h1>Hello Vue!</h1>
+        <h1>{{ siteName }}</h1>
         <div v-if="respAvailable">
-            <div v-bind:key="recipe.id" v-for="recipe in recipes">
-                <p>{{recipe.name}}</p>
-            </div>
+            <recipe v-bind:key="recipe.id" v-for="recipe in recipes" v-bind:title="recipe.name" v-bind:date="formatDate(recipe.date)"/>
         </div>
-        <img id="testIMG" src="./assets/food_example.jpg"/>
+        
     </div>
 </template>
 
 <script>
+import recipe from "./components/recipe.vue"
+
 export default {
     name: "App",
+    components: {
+        recipe
+    },
     data() {
         return {
+            siteName: "Haenen Recepten",
+
             recipes: [],
             respAvailable: false
         };
@@ -26,6 +31,12 @@ export default {
             this.respAvailable = true;
             this.recipes = data;
         });
+    },
+    methods: {
+        formatDate: function(dateString) {
+            const date = new Date(dateString);
+            return date.toDateString();
+        }
     }
 };
 </script>
