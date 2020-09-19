@@ -17,7 +17,7 @@ export default {
         border: 2px solid;
         border-radius: 5px;
         padding: 10px;
-        margin-bottom: 10px;
+        margin: 0 5px 10px 5px;
     }
 
     #title {
