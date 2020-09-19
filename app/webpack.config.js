@@ -1,5 +1,6 @@
 // webpack.config.js
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -44,5 +45,6 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new LodashModuleReplacementPlugin()
   ]
 }

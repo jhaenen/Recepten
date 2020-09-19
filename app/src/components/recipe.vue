@@ -1,7 +1,7 @@
 <template>
     <div class="recipe">
-        <h2>{{ title }}</h2>
-        <p>{{ date }}</p>
+        <div id="title">{{ title }}</div>
+        <div id="under-title">{{ date }}</div>
     </div>
 </template>
 
@@ -18,5 +18,17 @@ export default {
         border-radius: 5px;
         padding: 10px;
         margin-bottom: 10px;
+    }
+
+    #title {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    #under-title {
+        font-size: 12px;
+        color:darkslategray;
+        font-style: italic;
+        margin: 2.5px 0 0 5px;
     }
 </style>

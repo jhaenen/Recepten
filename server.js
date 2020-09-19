@@ -5,6 +5,13 @@ const util = require("util");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require('path');
+const _ = require("lodash");
+
+console.log("Server started.\n")
+console.log("Lodash(v" + _.VERSION + ") initialized.");
+console.log("Mongoose(v" + mongoose.version + ") initialized.\n");
+
+
 require("dotenv/config")
 global.serverRoot = path.resolve(__dirname);
 
