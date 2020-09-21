@@ -1,49 +1,26 @@
 <template>
     <div id="content">
-        <h1 id="banner">{{ siteName }}</h1>
-        <div v-if="respAvailable" style="margin: 0 5px">
-            <div v-if="!isMobile">
-                <div v-for="items in itemPairs" v-bind:key="items[0].id" class="row">
-                    <div v-bind:key="recipe.id" v-for="recipe in items" class="col-4">
-                        <recipe v-bind:title="recipe.name" v-bind:date="formatDate(recipe.date)"/>
-                    </div>
-                </div>
-            </div>
-            <div v-if="isMobile">
-                <div v-bind:key="recipe.id" v-for="recipe in recipes" class="col-12">
-                    <recipe v-bind:title="recipe.name" v-bind:date="formatDate(recipe.date)"/>
-                </div>
-            </div>
-        </div>
-        
+        <navbar />
+        <recipes v-bind:chunkSize="chunkSize" />
     </div>
 </template>
 
 <script>
-import recipe from "./components/recipe.vue"
+import recipes from "./components/recipes.vue"
+import navbar from "./components/navbar.vue"
+
+const mobileBreak = 800;
+const laptopBreak = 1500;
+const xlBreak = 2000;
+const uwBreak = 3000;
 
 export default {
     name: "App",
-    components: {
-        recipe
-    },
+    components: { recipes, navbar },
     data() {
         return {
-            siteName: "Haenen Recepten",
-
-            recipes: [],
-            respAvailable: false,
-            isMobile: (document.documentElement.clientWidth < 1000),
             chunkSize: 3
         };
-    },
-    created() {
-        fetch("/recipe")
-        .then(resp => resp.json())
-        .then(data => {
-            this.respAvailable = true;
-            this.recipes = data;
-        });
     },
     mounted() {
         this.$nextTick(function() {
@@ -51,21 +28,13 @@ export default {
             this.getWindowWidth();
         });
     },
-    computed: {
-        itemPairs() { return _.chunk(this.recipes, 3); }
-    },
     methods: {
-        formatDate: function(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString("nl-NL", { weekday: "short", year: "numeric", month: 'long', day: 'numeric' });
-        },
-
         getWindowWidth(event) {
-            if(document.documentElement.clientWidth < 1000) {
-                this.isMobile = true;
-            } else {
-                this.isMobile = false;
-            }
+            if(document.documentElement.clientWidth <= mobileBreak) this.chunkSize = 1;
+            else if(document.documentElement.clientWidth <= laptopBreak) this.chunkSize = 2;             
+            else if(document.documentElement.clientWidth <= xlBreak) this.chunkSize = 3;
+            else if(document.documentElement.clientWidth <= uwBreak) this.chunkSize = 4;
+            else this.chunkSize = 6;
         }
     },
     beforeDestroy() {
@@ -81,15 +50,11 @@ export default {
 
     body {
         margin: 0;
+        overflow-x: hidden;
     }
 
     #content {
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    }
-
-    #banner {
-        text-align: center;
-        color: crimson;
+        font-family: 'Montserrat', sans-serif;
     }
 
     .row::after {
