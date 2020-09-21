@@ -4,7 +4,7 @@
         <ul class="nav-links">
             <li v-for="nav_item in nav_items" :key="nav_item"><a v-bind:href="'#' + _.lowerCase(nav_item)">{{ nav_item }}</a></li>
         </ul>
-        <div class="burger">
+        <div class="burger" @click="navSlide">
             <div class="line1"></div>
             <div class="line2"></div>
             <div class="line3"></div>
@@ -20,6 +20,21 @@ export default {
             siteName: "Haenen Recepten",
 
             nav_items: ["Recepten", "Kalender", "About"]
+        }
+    },
+    methods: {
+        navSlide: function() {
+            const burger = document.querySelector(".burger");
+            const nav = document.querySelector(".nav-links");
+            const navLinks = document.querySelectorAll(".nav-links li");
+
+            nav.classList.toggle("nav-active");
+            burger.classList.toggle("toggle");
+
+            navLinks.forEach((link, index) => {
+                if(link.style.animation ) link.style.animation = '';
+                else link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+            });
         }
     }
 }
@@ -55,11 +70,12 @@ export default {
         align-items: center;
         justify-content: space-around;
         transform: translateX(100%);
+        transition: transform 0.5s ease-in;
     }
 
     .nav-links li {
         list-style: none;
-        opacity: 0;
+        /* opacity: 0; */
     }
 
     .nav-links a {
@@ -82,6 +98,7 @@ export default {
         border-radius: 1px;
         background-color: whitesmoke;
         margin: 5px;
+        transition: all 0.3s ease;
     }
 
     @media only screen and (min-width: 500px) {
@@ -145,5 +162,28 @@ export default {
 
     .nav-active {
         transform: translateX(0);
+    }
+
+    @keyframes navLinkFade {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .toggle .line1 {
+        transform: rotate(-45deg) translate(-4px, 5px);
+    }
+
+    .toggle .line2 {
+        opacity: 0;
+    }
+
+    .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
     }
 </style>
