@@ -22,7 +22,7 @@ export default {
         };
     },
     created() {
-        fetch("/recipe")
+        fetch("/recipe.json")
         .then(resp => resp.json())
         .then(data => {
             this.respAvailable = true;

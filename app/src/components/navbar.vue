@@ -111,6 +111,7 @@ export default {
             flex-direction: row;
             width: 50%;
             transform: translateX(0%);
+            transition: transform 0.5s ease-in;
         }
 
         .nav-links li {
