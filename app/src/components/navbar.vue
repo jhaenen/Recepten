@@ -19,7 +19,7 @@ export default {
         return {
             siteName: "Haenen Recepten",
 
-            nav_items: ["Recepten", "Kalender", "About"]
+            nav_items: ["Recepten", "Kalender", "About", "Test"]
         }
     },
     methods: {
@@ -67,14 +67,16 @@ export default {
         top: 10vh;
         background-color: inherit;
         margin: 0;
+        padding-top: 2vh;
         align-items: center;
-        justify-content: space-around;
+        justify-content: flex-start;
         transform: translateX(100%);
         transition: transform 0.5s ease-in;
     }
 
     .nav-links li {
         list-style: none;
+        padding-bottom: 4vh;
         /* opacity: 0; */
     }
 
@@ -109,6 +111,9 @@ export default {
         .title {
             font-size: 22px;
         }
+        .nav-links {
+            width: 40%;
+        }
     }
 
     @media only screen and (min-width: 800px) {
@@ -127,6 +132,7 @@ export default {
             justify-content: space-around;
             flex-direction: row;
             width: 50%;
+            padding-bottom: 0;
             transform: translateX(0%);
             transition: transform 0.5s ease-in;
         }
@@ -184,6 +190,6 @@ export default {
     }
 
     .toggle .line3 {
-        transform: rotate(45deg) translate(-5px, -6px);
+        transform: rotate(45deg) translate(-4.5px, -6px);
     }
 </style>
