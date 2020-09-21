@@ -1,9 +1,17 @@
 // webpack.config.js
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+var path = require('path');
 
 module.exports = {
   mode: 'development',
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    port: 1000,
+    hot: true,
+    open: true,
+    historyApiFallback: true
+  },
   module: {
     rules: [
       {
