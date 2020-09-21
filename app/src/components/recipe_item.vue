@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name: "recipe",
+    name: "recipe-item",
     props: ['title', 'date']
 }
 </script>
